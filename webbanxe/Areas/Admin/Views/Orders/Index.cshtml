@@ -1,0 +1,220 @@
+﻿@model IList<webbanxe.Models.ModelView.ViewOrder>
+@using webbanxe.Constant;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/Layout.cshtml";
+}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Đơn hàng</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a>Home</a></li>
+                <li class="breadcrumb-item"><a>Order</a></li>
+                <li class="breadcrumb-item active">List</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <table class="table">
+                    <tr>
+
+                        <th>STT</th>
+                        <th style="display: none !important;">IdOrder</th>
+                        <th> Người mua</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Tên sản phẩm</th>
+
+                        <th>Thành tiền</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+
+                    </tr>
+                    @for (var i = 0; i < Model.Count; i++)
+                    {
+
+                        <tr>
+
+                            <td>
+                                @{
+                                    int index = 1;
+                                    index = index + i;
+                                    @index
+                                }
+                            </td>
+                            <td style="display: none !important;"> @Model[i].Order.IdOrder</td>
+                            <td> @Model[i].User.UserName</td>
+                            <td>@Model[i].Order.NumberPhone</td>
+                            <td>@Model[i].Order.Address</td>
+                            @if (Model[i].Bike != null)
+                            {
+                                <td>@Model[i].Bike.NameBike</td>
+                                <td id="thanhtien">@(((Model[i].Bike.price - (Model[i].Bike.price * Model[i].Bike.PricePromotion)) * Model[i].Cart.QuantityPurchased).ToString("#,##0.0")) vnđ</td>
+                                <td>
+                                    @{
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.SUCCESS.ToString()))
+                                        {
+                                            <p> Đã đặt hàng</p>
+                                        }
+
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.APPROVE.ToString()))
+                                        {
+                                            <p> Đã xác nhận</p>
+                                        }
+                                        if (@Model[i].Order.OrderStatus.Equals(STATUS.NO_PAYMENT + "," + STATUS.DELIVERING))
+                                        {
+                                            <p> Đang giao, Chưa thanh toán</p>
+                                        }
+
+                                        if (@Model[i].Order.OrderStatus.Equals(STATUS.PAYMENT + "," + STATUS.DELIVERING))
+                                        {
+                                            <p> Đang giao, Đã thanh toán</p>
+                                        }
+
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.DELIVERED.ToString()))
+                                        {
+                                            <p> Đã giao</p>
+                                        }
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.PENDING.ToString()))
+                                        {
+                                            <p> Chờ duyệt</p>
+                                        }
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.CANCEL.ToString()))
+                                        {
+                                            <p> Đã hủy</p>
+                                        }
+
+                                        if (@Model[i].Order.OrderStatus.Equals(STATUS.PAYMENT.ToString()))
+                                        {
+                                            <p> Đã thanh toán</p>
+                                        }
+                                      
+                                    }
+                                </td>
+                                <td>
+                                    @{
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.APPROVE.ToString()))
+                                        {
+                                            <div>
+                                                <a asp-action="Cancal-Order" asp-route-id="@Model[i].Order.IdOrder">Hủy đơn</a>|
+                                                <a asp-action="Delivering-Order" asp-route-id="@Model[i].Order.IdOrder">Giao hàng</a>
+                                             
+                                            </div>
+                                        }
+
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.DELIVERING.ToString()))
+                                        {
+                                            <div>
+                                                <a asp-action="Cancal-Order" asp-route-id="@Model[i].Order.IdOrder">Hủy đơn</a>|
+                                                <a asp-action="Delivered-Order" asp-route-id="@Model[i].Order.IdOrder">Đã giao</a>|
+                                                <a asp-action="Payment-Order" asp-route-id="@Model[i].Order.IdOrder">Thanh toán</a>
+                                            </div>
+                                        }
+
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.PENDING.ToString()))
+                                        {
+                                            <div>
+                                                <a asp-action="Cancal-Order" asp-route-id="@Model[i].Order.IdOrder">Hủy đơn</a>|
+                                                <a asp-action="Approve-Order" asp-route-id="@Model[i].Order.IdOrder">Xác nhận</a>
+                                            </div>
+                                        }
+
+                                        if (@Model[i].Order.OrderStatus.Equals(STATUS.PAYMENT.ToString()))
+                                        {
+                                            <div>
+                                                <a asp-action="Delivering-Order" asp-route-id="@Model[i].Order.IdOrder">Giao hàng</a>
+                                            </div>
+                                        }
+                                    }
+                                </td>
+                            }
+
+                            @if (Model[i].Accessary != null)
+                            {
+                                <td>@Model[i].Accessary.NameAccessary</td>
+                                <td id="thanhtien">@(((Model[i].Accessary.Price - (Model[i].Accessary.Price * Model[i].Accessary.PricePromotion)) * Model[i].Cart.QuantityPurchased).ToString("#,##0.0")) vnđ</td>
+                                <td>
+                                    @{
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.SUCCESS.ToString()))
+                                        {
+                                            <p> Đã đặt hàng</p>
+                                        }
+
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.APPROVE.ToString()))
+                                        {
+                                            <p> Đã xác nhận</p>
+                                        }
+                                        if (@Model[i].Order.OrderStatus.Equals(STATUS.NO_PAYMENT + "," + STATUS.DELIVERING))
+                                        {
+                                            <p> Đang giao, Chưa thanh toán</p>
+                                        }
+
+                                        if (@Model[i].Order.OrderStatus.Equals(STATUS.PAYMENT + "," + STATUS.DELIVERING))
+                                        {
+                                            <p> Đang giao, Đã thanh toán</p>
+                                        }
+
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.DELIVERED.ToString()))
+                                        {
+                                            <p> Đã giao</p>
+                                        }
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.PENDING.ToString()))
+                                        {
+                                            <p> Chờ duyệt</p>
+                                        }
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.CANCEL.ToString()))
+                                        {
+                                            <p> Đã hủy</p>
+                                        }
+
+                                        if (@Model[i].Order.OrderStatus.Equals(STATUS.PAYMENT.ToString()))
+                                        {
+                                            <p> Đã thanh toán</p>
+                                        }
+                                       
+                                    }
+                                </td>
+                                <td>
+                                    @{
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.APPROVE.ToString()))
+                                        {
+                                            <div>
+                                                <a asp-action="Cancal-Order" asp-route-id="@Model[i].Order.IdOrder">Hủy đơn</a>|
+                                                <a asp-action="Delivering-Order" asp-route-id="@Model[i].Order.IdOrder">Giao hàng</a>
+                                              
+                                            </div>
+                                        }
+
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.DELIVERING.ToString()))
+                                        {
+                                            <div>
+                                                <a asp-action="Cancal-Order" asp-route-id="@Model[i].Order.IdOrder">Hủy đơn</a>|
+                                                <a asp-action="Delivered-Order" asp-route-id="@Model[i].Order.IdOrder">Đã giao</a>|
+                                                <a asp-action="Payment-Order" asp-route-id="@Model[i].Order.IdOrder">Thanh toán</a>
+                                            </div>
+                                        }
+
+                                        if (@Model[i].Order.OrderStatus.Contains(STATUS.PENDING.ToString()))
+                                        {
+                                            <div>
+                                                <a asp-action="Cancal-Order" asp-route-id="@Model[i].Order.IdOrder">Hủy đơn</a>|
+                                                <a asp-action="Approve-Order" asp-route-id="@Model[i].Order.IdOrder">Xác nhận</a>
+                                            </div>
+                                        }
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </section>
+</main>

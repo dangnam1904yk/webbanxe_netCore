@@ -1,0 +1,84 @@
+﻿@model IList<webbanxe.Areas.Admin.Models.InforPaymentBill>
+@using System.Collections;
+@using webbanxe.Constant;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/Layout.cshtml";
+}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Thanh toán</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a>Home</a></li>
+                <li class="breadcrumb-item"><a>Thanh toán</a></li>
+                <li class="breadcrumb-item active">List</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-lg-12" style="overflow-x:auto">
+                <table class="table" style="min-width:1500px">
+
+                    <tr>
+
+                        <th>STT</th>
+                        <th style="display: none !important;">IdOrder</th>
+
+                        <th>Ngày thanh toán</th>
+                        <th>Mã code</th>
+                        <th>Mã giao dịch</th>
+                        <th>Tên ngân hàng</th>
+
+                        <th>Thành tiền</th>
+                        <th>Nội dung thanh toán</th>
+
+                        <th>Trạng thái</th>
+                        <th>ID Order</th>
+                        <th>Người thanh toán</th>
+                    
+
+                    </tr>
+                   
+                        @for (var i = 0; i < Model.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    @{
+                                        int index = 1;
+                                        index = index + i;
+                                        @index
+                                    }
+                                </td>
+                                <td>@Model[i].Payment.Created</td>
+                                <td>@Model[i].Payment.maCode</td>
+                                <td>@Model[i].Payment.maGiaoDich</td>
+                                <td>@Model[i].Payment.tenNganHang</td>
+                                <td>@Model[i].Payment.tongTien.ToString("#,##0.0") vnđ</td>
+                                <td>@Model[i].Payment.content</td>
+                                <td>
+                                    @if (Model[i].Payment.status == 1)
+                                    {
+                                        <span>Thành công</span>
+                                    }
+                                    else
+
+                                    {
+                                        <span>Thất bại</span>
+                                    }
+
+                                </td>
+                                <td>@Model[i].Payment.IdOrder </td>
+                                <td>@Model[i].User.UserName</td>
+
+                            </tr>
+                        }
+                  
+                </table>
+            </div>
+        </div>
+    </section>
+</main>

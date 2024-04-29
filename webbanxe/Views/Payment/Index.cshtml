@@ -1,0 +1,26 @@
+﻿@model webbanxe.Models.Payment
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <div class="row g-5">
+            <!-- Blog list Start -->
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="column" style="margin: 20px">
+                        <h5 style="display: flex; justify-content: center">Thông tin thanh toán</h5>
+                        <div style="display: flex; justify-content: center"> @ViewBag.StatusPayment</div>
+                        <div style="display: flex; justify-content: center">Mã giao dịch:  @Model.maGiaoDich</div>
+                        <div style="display: flex; justify-content: center"> Ngân hàng: @Model.tenNganHang</div>
+                        <div style="display: flex; justify-content: center">Tổng tiền:  @Model.tongTien.ToString("#,##0.0") vnđ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,47 @@
+﻿@model webbanxe.Models.TypeBike
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/Layout.cshtml";
+}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Type Bike</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a>Home</a></li>
+                <li class="breadcrumb-item"><a>TypeBike</a></li>
+                <li class="breadcrumb-item active">Edit</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+    <section class="section dashboard">
+        <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="IdType" />
+                        <div class="form-group">
+                            <label asp-for="NameType" class="control-label"></label>
+                            <input asp-for="NameType" class="form-control" />
+                            <span asp-validation-for="NameType" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </section>
+</main>
+
+
+
+
+

@@ -1,0 +1,36 @@
+﻿@model webbanxe.Models.Cart;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Modify";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="padding-top: 100px">
+    <h4 style="text-align:center">Sửa giỏ hàng</h4>
+    
+        <div class="form-group" style="max-width:400px; margin:auto">
+            <form action="~/cart/update" method="post">
+                <input type="hidden" asp-for="IdCart" />
+                <input type="hidden" asp-for="IdBike" />
+            <input type="hidden" asp-for="IdAccessary" />
+
+                <input type="hidden" asp-for="IdUser" />
+                <label class="control-label"> Số lượng </label>
+                <input asp-for="QuantityPurchased" type="text" class="form-control" />
+                <label class="control-label"> Tên xe </label>
+            @if (ViewBag.Accessarie ==null)
+            {
+                <input value="@ViewBag.Bike.NameBike" type="text" disabled="disabled" class="form-control" />
+            }
+           
+            else{
+                <input value="@ViewBag.Accessarie.NameAccessary" type="text" disabled="disabled" class="form-control" />
+            }
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>    
+</div>
+

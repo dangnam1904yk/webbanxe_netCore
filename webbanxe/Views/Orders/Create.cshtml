@@ -1,0 +1,52 @@
+﻿@model webbanxe.Models.Order
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Order</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12" style="display:flex; justify-content:center">
+        <form asp-action="Create" style="width: 70%">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">  Số điện thoại</label>
+                <input asp-for="NumberPhone" class="form-control" />
+                <span asp-validation-for="NumberPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label"> Địa chỉ</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+
+                <input asp-for="OrderStatus" class="form-control" type="hidden" />
+                <span asp-validation-for="OrderStatus" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+             
+                <input asp-for="IdCart" class="form-control"  type="hidden"/>
+                <span asp-validation-for="IdCart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Lưu"  style="margin-top: 15px" class="btn btn-primary" />
+            </div>
+        </form>
+       
+    </div>
+    <div class="col-md-12" style="display:flex; justify-content:center">
+        <div style="width:70%; margin-top:15px">
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+
+
+

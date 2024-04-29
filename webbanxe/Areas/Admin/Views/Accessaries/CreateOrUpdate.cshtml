@@ -1,0 +1,77 @@
+﻿@model webbanxe.Models.Accessary
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/Layout.cshtml";
+}
+
+<script src="~/ckeditor/ckeditor.js"></script>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1> Accessaries</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a>Home</a></li>
+                <li class="breadcrumb-item"><a>Accessaries</a></li>
+                <li class="breadcrumb-item active">Add</li>
+            </ol>
+        </nav>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+<h4>Accessary</h4>
+<hr />
+<div class="row">
+            <div class="col-md-12">
+        <form asp-action="CreateOrUpdate" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="IdAccessary" />
+                <label asp-for="NameAccessary" class="control-label"></label>
+                <input asp-for="NameAccessary" class="form-control" />
+                <span asp-validation-for="NameAccessary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DescriptionAccessary" class="control-label"></label>
+                <textarea asp-for="DescriptionAccessary" class="form-control"></textarea>
+                    <span asp-validation-for="DescriptionAccessary" class="text-danger"></span>
+                    <script>
+                        CKEDITOR.replace("DescriptionAccessary");
+                    </script>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageAccessary" class="control-label"></label>
+                <input asp-for="ImageFile" class="form-control" />
+                <span asp-validation-for="ImageAccessary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PricePromotion" class="control-label"></label>
+                <input asp-for="PricePromotion" class="form-control" />
+                <span asp-validation-for="PricePromotion" class="text-danger"></span>
+            </div>
+
+                <div class="form-group">
+                    <label asp-for="Quantity" class="control-label"></label>
+                    <input asp-for="Quantity" class="form-control" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

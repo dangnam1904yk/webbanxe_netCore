@@ -1,0 +1,53 @@
+﻿@model webbanxe.Models.Accessary
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Accessary</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdAccessary" />
+            <div class="form-group">
+                <label asp-for="NameAccessary" class="control-label"></label>
+                <input asp-for="NameAccessary" class="form-control" />
+                <span asp-validation-for="NameAccessary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DescriptionAccessary" class="control-label"></label>
+                <input asp-for="DescriptionAccessary" class="form-control" />
+                <span asp-validation-for="DescriptionAccessary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageAccessary" class="control-label"></label>
+                <input asp-for="ImageAccessary" class="form-control" />
+                <span asp-validation-for="ImageAccessary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PricePromotion" class="control-label"></label>
+                <input asp-for="PricePromotion" class="form-control" />
+                <span asp-validation-for="PricePromotion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
