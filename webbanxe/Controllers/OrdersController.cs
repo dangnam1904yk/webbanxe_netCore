@@ -132,7 +132,6 @@ namespace webbanxe.Controllers
         }
 
         [HttpGet("Orders/Payment-Order/{id:int}")]
-        [Authentication]
         public async Task<IActionResult> Payment_Order(int? id)
         {
             if (id == null || _context.Order == null)

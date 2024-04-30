@@ -265,9 +265,9 @@ namespace webbanxe.Data.migrations
                     IdCart = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     QuantityPurchased = table.Column<long>(type: "bigint", nullable: false),
-                    IdBike = table.Column<long>(type: "bigint", nullable: false),
+                    IdBike = table.Column<long>(type: "bigint", nullable: true),
                     IdUser = table.Column<long>(type: "bigint", nullable: false),
-                    IdAccessary = table.Column<long>(type: "bigint", nullable: false)
+                    IdAccessary = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -276,14 +276,12 @@ namespace webbanxe.Data.migrations
                         name: "FK_Carts_Accessaries_IdAccessary",
                         column: x => x.IdAccessary,
                         principalTable: "Accessaries",
-                        principalColumn: "IdAccessary",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "IdAccessary");
                     table.ForeignKey(
                         name: "FK_Carts_Bike_IdBike",
                         column: x => x.IdBike,
                         principalTable: "Bike",
-                        principalColumn: "IdBike",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "IdBike");
                     table.ForeignKey(
                         name: "FK_Carts_Users_IdUser",
                         column: x => x.IdUser,
@@ -357,8 +355,7 @@ namespace webbanxe.Data.migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Carts_IdAccessary",
                 table: "Carts",
-                column: "IdAccessary",
-                unique: true);
+                column: "IdAccessary");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Carts_IdBike",

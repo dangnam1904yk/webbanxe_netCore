@@ -12,7 +12,7 @@ using webbanxe.Data;
 namespace webbanxe.Data.migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240429154150_create_model")]
+    [Migration("20240430070014_create_model")]
     partial class create_model
     {
         /// <inheritdoc />
@@ -156,10 +156,10 @@ namespace webbanxe.Data.migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdCart"));
 
-                    b.Property<long>("IdAccessary")
+                    b.Property<long?>("IdAccessary")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("IdBike")
+                    b.Property<long?>("IdBike")
                         .HasColumnType("bigint");
 
                     b.Property<long>("IdUser")
@@ -171,7 +171,8 @@ namespace webbanxe.Data.migrations
                     b.HasKey("IdCart");
 
                     b.HasIndex("IdAccessary")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[IdAccessary] IS NOT NULL");
 
                     b.HasIndex("IdBike");
 
@@ -581,15 +582,11 @@ namespace webbanxe.Data.migrations
                 {
                     b.HasOne("webbanxe.Models.Accessary", "Accessary")
                         .WithOne("Cart")
-                        .HasForeignKey("webbanxe.Models.Cart", "IdAccessary")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("webbanxe.Models.Cart", "IdAccessary");
 
                     b.HasOne("webbanxe.Models.Bike", "Bike")
                         .WithMany()
-                        .HasForeignKey("IdBike")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdBike");
 
                     b.HasOne("webbanxe.Models.User", "User")
                         .WithMany("Cart")

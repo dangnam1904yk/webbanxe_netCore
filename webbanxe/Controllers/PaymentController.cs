@@ -25,7 +25,6 @@ namespace webbanxe.Controllers
         }
 
         [Route("/payment.html", Name = "payment")]
-        [Authentication]
         public async Task<IActionResult> Index()
         {
             VnPay vnpay = new VnPay();
@@ -174,7 +173,7 @@ namespace webbanxe.Controllers
             return View(payment);
         }
 
-        [Authentication]
+  
         [Route("/lich-su-thanh-toan")]
         public async Task<ActionResult> LichSuThanhToan()
         {
